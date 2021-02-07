@@ -109,6 +109,11 @@ public class FilterManager {
 
     // --------------------------------------------------------------------------------
 
+    public static void setFirstShopRelicIs(String shopRelicName) {
+        FirstShopRelicFilter filter = new FirstShopRelicFilter(shopRelicName);
+        setValidatorFromString("firstShopRelicIs", filter);
+    }
+
     public static void print() {
         System.out.println("FilterManager has " + filters.size() + " filters");
     }

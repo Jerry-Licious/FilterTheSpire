@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class RelicRngSimulator {
+    public ArrayList<String> shopRelicPool = new ArrayList<>();
     public ArrayList<String> bossRelicPool = new ArrayList<>();
 
     private Random relicRng;
@@ -21,6 +22,11 @@ public class RelicRngSimulator {
     public String nthBossSwap(int n) {
         return bossRelicPool.get(n);
     }
+    public String firstShopRelic() {
+        // Shop relics are picked from the end of the list despite the shop
+        // being the only place to get them... for some reason.
+        return shopRelicPool.get(shopRelicPool.size() - 1);
+    }
 
     private void setSeed(long seed) {
         this.seed = seed;
@@ -31,10 +37,20 @@ public class RelicRngSimulator {
         relicRng.randomLong(); // uncommon
         relicRng.randomLong(); // rare
         relicRng.randomLong(); // common
-        relicRng.randomLong(); // shop
+        // relicRng.randomLong(); // shop
         // this.relicRng.randomLong(); // boss <- this is the one needed (we perform it below)
 
+        generateShopRelics();
         generateBossRelics();
+    }
+
+    private void generateShopRelics() {
+        RelicLibrary.populateRelicPool(
+                this.shopRelicPool,
+                AbstractRelic.RelicTier.SHOP,
+                AbstractDungeon.player.chosenClass
+        );
+        Collections.shuffle(this.shopRelicPool, new java.util.Random(relicRng.randomLong()));
     }
 
     private void generateBossRelics() {

@@ -51,6 +51,7 @@ public class FilterTheSpire implements PostInitializeSubscriber, PostDungeonInit
 
 
 //        FilterManager.setBossSwapIs("Pandora's Box");
+        FilterManager.setFirstShopRelicIs("PrismaticShard");
     }
 
     // --------------------------------------------------------------------------------
